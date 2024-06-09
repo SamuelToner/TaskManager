@@ -1,0 +1,24 @@
+{% extends "posts/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<a class="menu-button" href="{% url 'edit_post' post.id %}">Edit Post</a>
+{% if user_is_author or is_manager %}
+    <a class="menu-button" href="{% url 'delete_post' post.id %}">Delete Post</a>
+{% endif %}
+
+<a class="menu-button" href="{% url 'all_posts' %}">Back to Posts List</a>
+<div class="view-post-page">
+    <h2>{{ post.title }}</h2>    
+    <p><strong>Author:</strong> {{ post.author }}</p>
+    <p><strong>Published on:</strong> {{ post.created_at }}</p>
+    <p>{{ post.content|safe }}</p>
+    <a class="menu-button" href="{% url 'edit_post' post.id %}">Edit Post</a>
+    {% if user_is_author or is_manager %}
+        <a class="menu-button" href="{% url 'delete_post' post.id %}">Delete Post</a>
+    {% endif %}
+
+    <a class="menu-button" href="{% url 'all_posts' %}">Back to Posts List</a>
+</div>
+{% endblock %}

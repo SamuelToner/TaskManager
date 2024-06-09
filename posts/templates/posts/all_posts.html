@@ -1,0 +1,24 @@
+<!-- blog_app/templates/blog_app/index.html -->
+
+{% extends "posts/base.html" %}
+
+{% block title %} Posts{% endblock %}
+
+{% block content %}
+<div class="index-page">
+	
+    <h1>All Posts</h1><a class="menu-button" href="{% url 'add_post' %}">Add New Post</a>
+    <form method="get">
+        <button type="submit" name="filter" value="all_posts">All Posts</button>
+        <button type="submit" name="filter" value="my_posts">My Posts</button>
+    </form>
+    
+    <ul>
+        {% for post in posts %}
+            {% if post.privacy == 'public' or post.author == request.user %}
+                <li><a href="{% url 'view_post' post.id %}">{{ post.title }} - {{ post.created_at }} by {{ post.author }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}>

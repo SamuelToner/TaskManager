@@ -1,0 +1,32 @@
+<!-- posts/templates/blog_app/edit_post.html -->
+
+{% extends "posts/base.html" %}
+
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<div class="edit-post-page">
+    <h1>Edit Post</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ post.title }}"><br>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content">{{ post.content }}</textarea><br>
+        <label for="privacy">Privacy:</label>
+        <select id="privacy" name="privacy">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select>
+        <button type="submit">Save Changes</button>
+        <a class="menu-button" href="{% url 'view_post' post.id %}">Cancel</a>
+    </form>
+    <script src="https://cdn.tiny.cloud/1/r8ceg7a4f3dp4da3qsneckwv1cmrxvppeyakua7b1t8aybba/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#content'
+        });
+    </script>
+    
+</div>
+{% endblock %}
